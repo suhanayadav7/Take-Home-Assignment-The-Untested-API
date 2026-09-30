@@ -106,14 +106,3 @@ curl "http://localhost:3000/tasks?status=todo&page=1&limit=10"
 ```bash
 curl -X PATCH http://localhost:3000/tasks/<id>/complete
 ```
-
----
-
-## What to Submit
-
-See [ASSIGNMENT.md](./ASSIGNMENT.md) for full submission requirements. At minimum, include:
-
-- **Test files** — covering the endpoints and edge cases you identified
-- **Bug report** — what you found, where in the code, and why it's a bug (not just symptoms)
-- **At least one fix** — with a note on your approach
-- **`PATCH /tasks/:id/assign` implementation** — plus a short explanation of any design decisions (validation, edge cases, etc.)
