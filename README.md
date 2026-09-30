@@ -11,7 +11,6 @@ A small Express Task Manager API that started with **no tests**. I added a full 
 **🔗 Live API:** https://untested-task-api-ten.vercel.app
 **📄 Bug report:** [BUG_REPORT.md](./BUG_REPORT.md)
 **📝 Notes & design decisions:** [NOTES.md](./NOTES.md)
-**📋 Original brief:** [ASSIGNMENT.md](./ASSIGNMENT.md)
 
 ---
 
@@ -210,7 +209,6 @@ task-api/
   vercel.json                # Deployment config
 BUG_REPORT.md                # 8 bugs: where, why, how found, fix
 NOTES.md                     # Design decisions, what's next, production questions
-ASSIGNMENT.md                # Original brief
 ```
 
 ---

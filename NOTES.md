@@ -66,7 +66,7 @@ Other decisions:
 - Contract tests that check the response shape against the documented Task schema.
 
 ## What surprised me
-- The README and ASSIGNMENT.md document different status values (`pending/in-progress/completed` vs
+- The original README and the assignment brief documented different status values (`pending/in-progress/completed` vs
   `todo/in_progress/done`), so the README's own sample request returns nothing.
 - `completeTask` changed the priority, which looks like a copy-paste slip and silently loses data.
 - `includes()` used for an enum comparison. It works for exact values, which is why it's easy to miss.

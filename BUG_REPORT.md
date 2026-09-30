@@ -106,8 +106,8 @@ in `tests/`.
 ---
 
 ### Also noticed (not bugs in code, but worth raising)
-- **Doc mismatch:** `README.md` lists statuses as `pending | in-progress | completed`, and its sample request uses
-  `?status=pending`. The code and `ASSIGNMENT.md` use `todo | in_progress | done`. With the README's values, POST returns
+- **Doc mismatch:** the original `README.md` listed statuses as `pending | in-progress | completed`, and its sample request used
+  `?status=pending`. The code and the assignment brief use `todo | in_progress | done`. With the README's values, POST returns
   400 and the filter returns nothing.
 - `?status=` and `?page=` can't be combined. When `status` is present, pagination is silently ignored.
 - `dueDate` validation uses `Date.parse`, which accepts non-ISO strings like `"March 5"`.
