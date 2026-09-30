@@ -1,5 +1,7 @@
 # Take-Home Assignment — The Untested API
 
+> **Live API:** https://untested-task-api-ten.vercel.app (try `/tasks`, `/tasks/stats`)
+>
 > **Submission:** see **[NOTES.md](./NOTES.md)** (summary, coverage, feature design, answers to the submission questions)
 > and **[BUG_REPORT.md](./BUG_REPORT.md)** (8 bugs; 6 fixed with regression tests).
 
