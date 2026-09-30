@@ -1,5 +1,8 @@
 # Take-Home Assignment — The Untested API
 
+> **Submission:** see **[NOTES.md](./NOTES.md)** (summary, coverage, feature design, answers to the submission questions)
+> and **[BUG_REPORT.md](./BUG_REPORT.md)** (8 bugs; 6 fixed with regression tests).
+
 A 2-day take-home assignment. You'll read unfamiliar code, write tests, track down bugs, and ship a small feature.
 
 Read **[ASSIGNMENT.md](./ASSIGNMENT.md)** for the full brief before you start.
@@ -65,7 +68,7 @@ ASSIGNMENT.md               # Full brief — read this first
 | `DELETE` | `/tasks/:id`              | Delete a task (returns 204)              |
 | `PATCH`  | `/tasks/:id/complete`     | Mark a task as complete                  |
 | `GET`    | `/tasks/stats`            | Counts by status + overdue count         |
-| `PATCH`  | `/tasks/:id/assign`       | **Assign a task to a user** _(to implement)_ |
+| `PATCH`  | `/tasks/:id/assign`       | Assign a task: `{"assignee":"Alice"}`, or `{"assignee":null}` to unassign. 400 invalid / 404 missing / 409 already assigned to someone else |
 
 ### Task shape
 
@@ -74,9 +77,10 @@ ASSIGNMENT.md               # Full brief — read this first
   "id": "uuid",
   "title": "string",
   "description": "string",
-  "status": "pending | in-progress | completed",
+  "status": "todo | in_progress | done",
   "priority": "low | medium | high",
   "dueDate": "ISO 8601 or null",
+  "assignee": "string or null",
   "completedAt": "ISO 8601 or null",
   "createdAt": "ISO 8601"
 }
@@ -93,7 +97,7 @@ curl -X POST http://localhost:3000/tasks \
 
 **List tasks with filter**
 ```bash
-curl "http://localhost:3000/tasks?status=pending&page=1&limit=10"
+curl "http://localhost:3000/tasks?status=todo&page=1&limit=10"
 ```
 
 **Mark complete**

@@ -1,7 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const taskService = require('../services/taskService');
-const { validateCreateTask, validateUpdateTask } = require('../utils/validators');
+const {
+  validateCreateTask,
+  validateUpdateTask,
+  validateAssignTask,
+} = require('../utils/validators');
 
 router.get('/stats', (req, res) => {
   const stats = taskService.getStats();
@@ -17,6 +21,8 @@ router.get('/', (req, res) => {
   }
 
   if (page !== undefined || limit !== undefined) {
+    // Note (BUG-7): negative values like page=-1 or limit=-5 are not rejected here.
+    // Documented in BUG_REPORT.md.
     const pageNum = parseInt(page) || 1;
     const limitNum = parseInt(limit) || 10;
     const tasks = taskService.getPaginated(pageNum, limitNum);
@@ -67,6 +73,30 @@ router.patch('/:id/complete', (req, res) => {
   }
 
   res.json(task);
+});
+
+// PATCH /tasks/:id/assign  body: { "assignee": "Alice" }, or { "assignee": null } to unassign
+// Design decisions are explained in NOTES.md.
+router.patch('/:id/assign', (req, res) => {
+  const error = validateAssignTask(req.body);
+  if (error) {
+    return res.status(400).json({ error });
+  }
+
+  const assignee = req.body.assignee === null ? null : req.body.assignee.trim();
+  const result = taskService.assignTask(req.params.id, assignee);
+
+  if (result.error === 'not_found') {
+    return res.status(404).json({ error: 'Task not found' });
+  }
+  if (result.error === 'conflict') {
+    return res.status(409).json({
+      error: `Task is already assigned to "${result.task.assignee}". Unassign it first by sending { "assignee": null }.`,
+      task: result.task,
+    });
+  }
+
+  res.json(result.task);
 });
 
 module.exports = router;
